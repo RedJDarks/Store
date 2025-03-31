@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shinzou Store</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            color: white;
+            background-color: black;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: black;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            opacity: 0.8;
+            animation: moveStars linear infinite;
+        }
+
+        @keyframes moveStars {
+            from { transform: translateY(0); }
+            to { transform: translateY(100vh); }
+        }
+
+        .welcome {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .store-container {
+            width: 90%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.2);
+            font-size: 1.2rem;
+            border-radius: 10px;
+        }
+
+        td {
+            font-size: 1rem;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .contact {
+            margin-top: 15px;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .contact a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+
+    <div class="welcome">Welcome, User</div>
+
+    <div class="store-container">
+        <h2>Store</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Stock Left</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody id="store-items">
+            	
+            </tbody>
+        </table>
+
+        <div class="contact">
+            Contact: <a href="https://discord.com" target="_blank">@shinzouph</a> on Discord
+        </div>
+    </div>
+
+    <script>
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.left = Math.random() * window.innerWidth + 'px';
+                star.style.top = Math.random() * window.innerHeight + 'px';
+                star.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        createStars();
+
+        const storeData = [
+            { title: "3 Days Key", stock: 10, price: "250R$" }
+        ];
+
+        const storeTable = document.getElementById("store-items");
+
+        storeData.forEach(item => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${item.title}</td>
+                <td>${item.stock}</td>
+                <td class="price">${item.price}</td>
+            `;
+            storeTable.appendChild(row);
+        });
+    </script>
+</body>
+</html>
